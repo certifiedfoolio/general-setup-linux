@@ -21,5 +21,5 @@ case $RESULT in
     3) bash $DIR/install-twe.sh;;
     4) bash $DIR/appinstaller.sh;;
     5) clear && rm -rf $MDIR && echo "Setup has uninstalled successfully." && exit 0;;
-    *) echo "Setup has quit." && echo "If you wish to run setup again, please run "bash /setup.sh".";;
+    *) echo "Setup has quit." && echo "If you wish to run setup again, please run 'bash /setup.sh'.";;
 esac
