@@ -13,7 +13,7 @@ echo "
 "
 echo "Detecting distro..."
 
-which yum >/dev/null && { DISTRO="FEDORA"; exit 0; }
+which dnf >/dev/null && { DISTRO="FEDORA"; exit 0; }
 which apt-get >/dev/null && { DISTRO="DEBIAN"; }
 
 if [ "$DISTRO" == "DEBIAN" ]; then 
