@@ -17,8 +17,8 @@ RESULT=$(cat $TMPFILE)
 
 case $RESULT in
     1) bash $DIR/gtk-inst.sh;;
-    2) bash $DIR/install-ext.sh;;
-    3) clear && flatpak install org.gnome.Extensions && echo "Installed successfully." && sleep 1 bash /setup.sh;;
+    2) clear && flatpak install org.gnome.Extensions && echo "Installed successfully." && sleep 1 && bash /setup.sh;;
+    3) bash $DIR/install-twe.sh;;
     4) bash $DIR/appinstaller.sh;;
     5) clear && rm -rf $MDIR && echo "Setup has uninstalled successfully." && exit 0;;
     *) echo "Setup has quit." && echo "If you wish to run setup again, please run "bash /setup.sh".";;
