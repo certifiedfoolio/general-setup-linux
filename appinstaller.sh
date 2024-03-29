@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dialog --menu "Welcome to Setup! Please choose an option:" 20 60 5 \
+dialog --menu "Please choose an app to install:" 20 60 5 \
     1 "Install Discord" \
     2 "Install Vencord Patch"
     3 "Install Chromium" \
