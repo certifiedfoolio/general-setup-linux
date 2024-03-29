@@ -16,6 +16,8 @@ echo "Detecting distro..."
 which dnf >/dev/null && { DISTRO="FEDORA"; exit 0; }
 which apt-get >/dev/null && { DISTRO="DEBIAN"; }
 
+echo "Detected distro: $DISTRO"
+
 if [[ "$DISTRO" == "DEBIAN" ]]; then
     PKGMGR="apt"
     REPENABLE="add-apt-repository ppa:ubuntuhandbook1/conkymanager2"
