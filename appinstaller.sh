@@ -18,4 +18,6 @@ case $RESULT in
     *) clear && bash /setup.sh;;
 esac
 
+bash /setup.sh
+
 
