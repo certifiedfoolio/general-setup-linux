@@ -29,7 +29,9 @@ if [[ "$UNDEP" == "YES" ]]; then
     sudo $PKGMGR remove flatpak
     sudo $PKGMGR remove dialog
     sudo $PKGMGR remove git
+    echo "Setup has successfully uninstalled. Quitting..."
     exit 0;
     else
+    echo "Setup has successfully uninstalled. Quitting..."
     exit 0;
 fi
