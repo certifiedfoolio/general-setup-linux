@@ -72,7 +72,7 @@ if [[ "$DISTRO" == "FEDORA" ]]; then
     REPENABLE="dnf copr enable geraldosimiao/conky-manager2"
 fi
 
-sudo $REPENABLE
+yes | sudo $REPENABLE
 sudo $PKGMGR update
 clear
 
@@ -118,7 +118,7 @@ echo "Installing Segoe Font..."
 git clone https://github.com/mrbvrz/segoe-ui-linux
 cd segoe-ui-linux
 chmod +x install.sh
-./install.sh
+yes | ./install.sh
 cd ..
 rm -rf segoe-ui-linux
 clear
@@ -129,7 +129,7 @@ if [[ "$CONKINST" == "YES" ]]; then
     sleep 3
     echo "Installing Conky Manager 2..."
 
-    sudo $PKGMGR install conky-manager2
+    yes | sudo $PKGMGR install conky-manager2
     clear
     exit 0;
     echo "Done."
