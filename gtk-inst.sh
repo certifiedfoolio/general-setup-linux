@@ -73,7 +73,7 @@ if [[ "$DISTRO" == "FEDORA" ]]; then
 fi
 
 yes | sudo $REPENABLE
-sudo $PKGMGR update
+yes | sudo $PKGMGR update
 clear
 
 echo "Repository update finished."
