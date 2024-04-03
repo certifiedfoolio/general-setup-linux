@@ -1,14 +1,49 @@
 #!/bin/bash
 
+MANINST="NO"
+
+dialog --menu "Which theme would you prefer to install?" 20 60 5 \
+    1 "Install GTK Theme" \
+    2 "Install Windows 10 Theme" \
+    3 "Install Windows 11 theme" \
+    4 "Install MacOS Theme" \
+    5 "Quit" 2>$TMPFILE
+
+RESULT=$(cat $TMPFILE)
+
+case $RESULT in
+    1) REPOLINK="https://github.com/vinceliuice/Fluent-icon-theme" && REPODIR="Fluent-icon-theme" && exit 0;;
+    2) REPOLINK="https://github.com/B00merang-Project/Windows-10/archive/refs/tags/3.2.1.zip" && MANINST="YES" && exit 0;;
+    3) REPOLINK="https://github.com/yeyushengfan258/Win11-icon-theme" && REPODIR="Win11-icon-theme" && exit 0;;
+    4) REPOLINK="https://github.com/vinceliuice/WhiteSur-icon-theme" && REPODIR="WhiteSur-icon-theme" && exit 0;;
+    5) bash /setup.sh;;
+    *) bash /setup.sh;;
+esac
+
+clear
+
+dialog --title "Install Conky Manager 2" \
+--backtitle "Question" \
+--yesno "Do you also want to install Conky Manager 2?" 7 60
+
+response=$?
+case $response in
+   0) CONKINST="YES";;
+   1) CONKINST="NO";;
+   255) CONKINST="YES" && echo "[ESC] key pressed. 'CONKINST variable set to [YES] by default.'";;
+esac
+
+clear
+
 dialog --title "Install Gnome Extensions" \
 --backtitle "Question" \
 --yesno "Do you also want to install the Gnome Extensions for this theme?" 7 60
 
 response=$?
 case $response in
-   0) GEXTINST="YES";;
-   1) GEXTINST="NO";;
-   255) GEXTINST="YES" && echo "[ESC] key pressed. 'GEXTINST variable set to [YES] by default.'";;
+   0) CONKINST="YES";;
+   1) CONKINST="NO";;
+   255) CONKINST="YES" && echo "[ESC] key pressed. 'CONKINST variable set to [YES] by default.'";;
 esac
 
 clear
@@ -47,19 +82,28 @@ echo "Repository update finished."
 sleep 3
 echo "Installing preferences..."
 sleep 3
-echo "Installing Fluent icon theme..."
+echo "Installing $REPODIR..."
 
-git clone https://github.com/vinceliuice/Fluent-icon-theme
-cd Fluent-icon-theme
-chmod +x install.sh
-./install.sh
-cd ..
-rm -rf Fluent-icon-theme
-clear
+if [[ "$MANINST" == "NO" ]]; then
+    git clone $REPOLINK
+    cd $REPODIR
+    chmod +x install.sh
+    ./install.sh
+    cd ..
+    rm -rf $REPODIR
+    clear
+    exit 0;
+
+    else
+    cd $HOME/Downloads
+    curl -JLO "$REPOLINK"
+    unzip "3.2.1.zip" -d $HOME/.themes
+    rm -rf $HOME/Downloads/3.2.1.zip
+fi
 
 echo "Done."
 sleep 3
-echo "Installing Fluent GTK Theme..."
+echo "Installing Fluent Theme..."
 
 git clone https://github.com/vinceliuice/Fluent-gtk-theme
 cd Fluent-gtk-theme
@@ -82,16 +126,21 @@ rm -rf segoe-ui-linux
 clear
 
 echo "Done."
+
+if [[ "$CONKINST" == "YES" ]]; then
+    sleep 3
+    echo "Installing Conky Manager 2..."
+
+    sudo $PKGMGR install conky-manager2
+    clear
+    exit 0;
+    echo "Done."
+    echo "To configure Conky, find the application 'Conky Manager 2' in your applications menu and launch it."
+fi
+
 sleep 3
-echo "Installing Conky Manager 2..."
 
-sudo $PKGMGR install conky-manager2
-clear
-
-echo "Done."
-sleep 3
-
-if [[ "$GEXTINST" == "YES" ]]; then
+if [[ "$CONKINST" == "YES" ]]; then
     echo "Installing extensions..."
 
     array=( https://extensions.gnome.org/extension/3628/arcmenu/
