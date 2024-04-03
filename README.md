@@ -1,3 +1,3 @@
-# GTK Theme Setup
+# Theme Installer
 
-An installer for a theme and a couple other things. That's it.
+An installer for some themes and a couple other things. That's it.
