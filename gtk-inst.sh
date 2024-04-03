@@ -2,12 +2,11 @@
 
 MANINST="NO"
 
-dialog --menu "Which theme would you prefer to install?" 20 60 5 \
+dialog --menu "Which theme would you prefer to install?" 20 60 4 \
     1 "Install GTK Theme" \
     2 "Install Windows 10 Theme" \
     3 "Install Windows 11 theme" \
-    4 "Install MacOS Theme" \
-    5 "Quit" 2>$TMPFILE
+    4 "Install MacOS Theme" 2>$TMPFILE
 
 RESULT=$(cat $TMPFILE)
 
@@ -16,7 +15,6 @@ case $RESULT in
     2) REPOLINK="https://github.com/B00merang-Project/Windows-10/archive/refs/tags/3.2.1.zip" && MANINST="YES" && exit 0;;
     3) REPOLINK="https://github.com/yeyushengfan258/Win11-icon-theme" && REPODIR="Win11-icon-theme" && exit 0;;
     4) REPOLINK="https://github.com/vinceliuice/WhiteSur-icon-theme" && REPODIR="WhiteSur-icon-theme" && exit 0;;
-    5) bash /setup.sh;;
     *) bash /setup.sh;;
 esac
 
