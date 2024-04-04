@@ -2,11 +2,13 @@
 
 MANINST="NO"
 
+TMPFILE=$(mktemp)
+
 dialog --menu "Which theme would you prefer to install?" 20 60 4 \
     1 "Install GTK Theme" \
     2 "Install Windows 10 Theme" \
     3 "Install Windows 11 theme" \
-    4 "Install MacOS Theme" 2>$TMPFILE
+    4 "Install MacOS Theme" \
 
 RESULT=$(cat $TMPFILE)
 
