@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "Please authorize this program."
-sudo echo "Authorized."
-
 ln -s /.git/setup-installer/setup.sh /setup.sh
 
 DIR=/.git/setup
