@@ -2,7 +2,6 @@
 
 echo "Please authorize this program."
 sudo echo "Authorized."
-sudo bash
 
 ln -s /.git/setup-installer/setup.sh /setup.sh
 
@@ -21,10 +20,10 @@ dialog --menu "Welcome to Setup! Please choose an option:" 20 60 5 \
 RESULT=$(cat $TMPFILE)
 
 case $RESULT in
-    1) bash $DIR/gtk-inst.sh;;
-    2) clear && flatpak install org.gnome.Extensions && echo "Installed successfully." && sleep 1 && bash /setup.sh;;
-    3) bash $DIR/install-twe.sh;;
-    4) bash $DIR/appinstaller.sh;;
-    5) bash $DIR/uninst.sh;;
+    1) sudo bash $DIR/gtk-inst.sh;;
+    2) sudo clear && flatpak install org.gnome.Extensions && echo "Installed successfully." && sleep 1 && bash /setup.sh;;
+    3) sudo bash $DIR/install-twe.sh;;
+    4) sudo bash $DIR/appinstaller.sh;;
+    5) sudo bash $DIR/uninst.sh;;
     *) echo "Setup has quit." && echo "If you wish to run setup again, please run 'bash /setup.sh'.";;
 esac
