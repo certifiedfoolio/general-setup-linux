@@ -26,10 +26,7 @@ esac
 rm -rf /.git
 
 if [[ "$UNDEP" == "YES" ]]; then
-    sudo $PKGMGR remove flatpak
-    sudo $PKGMGR remove dialog
-    sudo $PKGMGR remove unzip
-    sudo $PKGMGR remove git
+    sudo $PKGMGR remove flatpak dialog unzip git
     echo "Setup has successfully uninstalled. Quitting..."
     exit 0;
     else
