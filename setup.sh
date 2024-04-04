@@ -10,7 +10,7 @@ dialog --menu "Welcome to Setup! Please choose an option:" 20 60 5 \
     2 "Install Gnome Extensions" \
     3 "Install Gnome Tweaks" \
     4 "Install Flathub Apps" \
-    5 "Uninstall Setup" 2>$TMPFILE
+    5 "Uninstall Setup" \
 
 RESULT=$(cat $TMPFILE)
 
