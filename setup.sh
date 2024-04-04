@@ -19,6 +19,6 @@ case $RESULT in
     2) clear && flatpak install org.gnome.Extensions && echo "Installed successfully." && sleep 1 && bash /setup.sh;;
     3) bash $DIR/install-twe.sh;;
     4) bash $DIR/appinstaller.sh;;
-    5) bash $DIR/uninst.sh;;
+    5) sudo bash $DIR/uninst.sh;;
     *) echo "Setup has quit." && echo "If you wish to run setup again, please run 'bash /setup.sh'.";;
 esac
