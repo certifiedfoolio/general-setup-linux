@@ -2,7 +2,6 @@
 
 sudo ln -s /.git/setup-installer/setup.sh /setup.sh
 
-TMPFILE=$(mktemp)
 DIR=/.git/setup
 MDIR=/.git
 
