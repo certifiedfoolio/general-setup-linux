@@ -5,6 +5,8 @@ sudo ln -s /.git/setup-installer/setup.sh /setup.sh
 DIR=/.git/setup
 MDIR=/.git
 
+TMPFILE=$(mktemp)
+
 dialog --menu "Welcome to Setup! Please choose an option:" 20 60 5 \
     1 "Install GTK Theme" \
     2 "Install Gnome Extensions" \
