@@ -132,8 +132,7 @@ if [[ "$CONKINST" == "YES" ]]; then
     echo "Installing Conky Manager 2..."
 
     yes | sudo $PKGMGR install conky-manager2
-    clear
-    exit 0;
+    clear;
     echo "Done."
     echo "To configure Conky, find the application 'Conky Manager 2' in your applications menu and launch it."
 fi
