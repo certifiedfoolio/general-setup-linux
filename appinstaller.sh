@@ -3,6 +3,7 @@
 TMPFILE=$(mktemp)
 
 dialog --menu "Please choose an app to install:" 20 60 5 \
+    --backtitle "Theme Installer" \
     1 "Install Discord" \
     2 "Install Vencord Patch"
     3 "Install Chromium" \

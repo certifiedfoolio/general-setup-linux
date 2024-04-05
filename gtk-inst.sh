@@ -5,6 +5,7 @@ MANINST="NO"
 TMPFILE=$(mktemp)
 
 dialog --menu "Which theme would you prefer to install?" 20 60 4 \
+    --backtitle "Theme Installer" \
     1 "Install GTK Theme" \
     2 "Install Windows 10 Theme" \
     3 "Install Windows 11 theme" \
@@ -24,7 +25,7 @@ REPODIR=${REPOLINK##*/}
 clear
 
 dialog --title "Install Conky Manager 2" \
---backtitle "Question" \
+--backtitle "Theme Installer" \
 --yesno "Do you also want to install Conky Manager 2?" 7 60
 
 response=$?
@@ -37,7 +38,7 @@ esac
 clear
 
 dialog --title "Install Gnome Extensions" \
---backtitle "Question" \
+--backtitle "Theme Installer" \
 --yesno "Do you also want to install the Gnome Extensions for this theme?" 7 60
 
 response=$?
