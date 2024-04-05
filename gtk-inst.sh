@@ -92,8 +92,7 @@ if [[ "$MANINST" == "NO" ]]; then
     ./install.sh
     cd ..
     rm -rf $REPODIR
-    clear
-    exit 0;
+    clear;
 
     else
     cd $HOME/Downloads
