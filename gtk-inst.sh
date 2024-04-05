@@ -13,13 +13,14 @@ dialog --menu "Which theme would you prefer to install?" 20 60 4 \
 RESULT=$(cat $TMPFILE)
 
 case $RESULT in
-    ("1") REPOLINK="https://github.com/vinceliuice/Fluent-icon-theme" && REPODIR="Fluent-icon-theme" && exit 0;;
-    ("2") REPOLINK="https://github.com/B00merang-Project/Windows-10/archive/refs/tags/3.2.1.zip" && MANINST="YES" && exit 0;;
-    ("3") REPOLINK="https://github.com/yeyushengfan258/Win11-icon-theme" && REPODIR="Win11-icon-theme" && exit 0;;
-    ("4") REPOLINK="https://github.com/vinceliuice/WhiteSur-icon-theme" && REPODIR="WhiteSur-icon-theme" && exit 0;;
-    ("*") bash /setup.sh;;
+    1) REPOLINK="https://github.com/vinceliuice/Fluent-icon-theme";;
+    2) REPOLINK="https://github.com/B00merang-Project/Windows-10/archive/refs/tags/3.2.1.zip";;
+    3) REPOLINK="https://github.com/yeyushengfan258/Win11-icon-theme";;
+    4) REPOLINK="https://github.com/vinceliuice/WhiteSur-icon-theme";;
+    *) bash /setup.sh;;
 esac
 
+REPODIR=${REPOLINK##*/}
 clear
 
 dialog --title "Install Conky Manager 2" \
