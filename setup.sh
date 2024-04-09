@@ -15,11 +15,18 @@ dialog --menu "Welcome to Setup! Please choose an option:" 20 60 5 \
 
 RESULT=$(cat $TMPFILE)
 
+echo $RESULT
+
 case $RESULT in
     1) sudo bash $DIR/gtk-inst.sh;;
-    2) sudo clear && flatpak install org.gnome.Extensions && echo "Installed successfully." && sleep 1 && bash /setup.sh;;
+    2) INSTEXT="YES";;
     3) sudo bash $DIR/install-twe.sh;;
     4) sudo bash $DIR/appinstaller.sh;;
     5) sudo bash $DIR/uninst.sh;;
     *) echo "Setup has quit." && echo "If you wish to run setup again, please run 'bash /setup.sh'.";;
 esac
+
+if [[ "$INSTEXT" == "YES" ]]; then
+    flatpak install flathub org.gnome.Extensions
+    dialog --msgbox "Gnome Extensions has been installed successfully." 20 60
+fi  
