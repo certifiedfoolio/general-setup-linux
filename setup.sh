@@ -5,8 +5,7 @@ MDIR=/.git
 
 TMPFILE=$(mktemp)
 
-dialog --menu "Welcome to Setup! Please choose an option:" 20 60 5 \
-    --backtitle "Theme Installer" \
+dialog --menu "Welcome to Setup! Please choose an option:" --backtitle "Theme Installer" 20 60 5 \
     1 "Install GTK Theme" \
     2 "Install Gnome Extensions" \
     3 "Install Gnome Tweaks" \
