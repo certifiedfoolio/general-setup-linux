@@ -1,7 +1,5 @@
 #!/bin/bash
 
-ln -s /.git/setup-installer/setup.sh /setup.sh
-
 DIR=/.git/setup
 MDIR=/.git
 
