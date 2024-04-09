@@ -48,8 +48,6 @@ case $response in
    255) CONKINST="YES" && echo "[ESC] key pressed. 'CONKINST variable set to [YES] by default.'";;
 esac
 
-( echo 10;sleep 1;echo 50;sleep 1; echo 90;sleep 1;echo 100;sleep 1 ) | dialog --gauge 'text' 10 60 0
-
 which dnf >/dev/null && { DISTRO="FEDORA"; exit 0; }
 which apt-get >/dev/null && { DISTRO="DEBIAN"; }
 
@@ -62,11 +60,9 @@ if [[ "$DISTRO" == "FEDORA" ]]; then
     REPENABLE="dnf copr enable geraldosimiao/conky-manager2"
 fi
 
-yes | sudo $REPENABLE
+MFUNC="yes | sudo $REPENABLE
 yes | sudo $PKGMGR update
-clear
-
-( echo 10;sleep 1;echo 50;sleep 1; echo 90;sleep 1;echo 100;sleep 1 ) | dialog --gauge 'text' 10 60 0
+clear"
 
 FUNC1="if [[ "$MANINST" == "NO" ]]; then
     git clone $REPOLINK
@@ -131,6 +127,8 @@ FUNC5="if [[ "$GEXINST" == "YES" ]]; then
 
     dconf write /org/gnome/shell/extensions/panel-date-format/format "'%I:%M %p\n%Y/%m/%d'"
 fi"
+
+( echo 10;$MFUNC;echo 50;$FUNC1;echo 60;$FUNC2;echo 70;$FUNC3;echo 80;$FUNC4;echo 90;$FUNC5;echo 100 ) | dialog --gauge 'text' 10 60 0
 
 if [[ "$GEXINST" == "YES" ]]; then dialog --backtitle "Theme Installer" --msgbox "To configure the rest of the extensions, you will have to configure them in the extensions app. You can find the extensions app via search bar or the Applications menu." 20 60
 fi
