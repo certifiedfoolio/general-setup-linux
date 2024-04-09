@@ -25,7 +25,7 @@ case $RESULT in
     *) clear && bash /setup.sh;;
 esac
 
-dialog --msgbox "Installed $APPECHO successfully." 20 60
+dialog --basktitle "Theme Installer" --msgbox "Installed $APPECHO successfully." 20 60
 bash /setup.sh
 
 
