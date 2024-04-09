@@ -173,13 +173,10 @@ if [[ "$CONKINST" == "YES" ]]; then
     echo "Time formatter configured."
     sleep 0.3
 
-
-    echo "To configure the rest of the extensions, you will have to configure them in the extensions app."
-    echo "You can find it in the search bar or in applications menu."
+    dialog --backtitle "Theme Installer" --msgbox "To configure the rest of the extensions, you will have to configure them in the extensions app. You can find the extensions app via search bar or the Applications menu." 20 60
 fi
 
-echo "To configure fonts, icons and the like, please open Gnome Tweaks and go to the 'Appearance' tab."
-echo "You will find everything there."
+dialog --backtitle "Theme Installer" --msgbox "To configure fonts, icons and the like, please open Gnome Tweaks and go to the 'Appearance' tab. You will find everything there." 20 60
 sleep 0.3
 echo "Setup has finished execution. Exiting..."
 bash /setup.sh

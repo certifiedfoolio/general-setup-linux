@@ -25,8 +25,7 @@ case $RESULT in
     *) clear && bash /setup.sh;;
 esac
 
-echo "Installed $APPECHO successfully."
-sleep 0.3
+dialog --msgbox "Installed $APPECHO successfully." 20 60
 bash /setup.sh
 
 
