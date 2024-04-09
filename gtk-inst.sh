@@ -48,24 +48,10 @@ case $response in
    255) CONKINST="YES" && echo "[ESC] key pressed. 'CONKINST variable set to [YES] by default.'";;
 esac
 
-clear
-echo "
-   _____      _                      ___  
-  / ____|    | |                    |__ \ 
- | (___   ___| |_ _   _ _ __   __   __ ) |
-  \___ \ / _ \ __| | | | '_ \  \ \ / // / 
-  ____) |  __/ |_| |_| | |_) |  \ V // /_ 
- |_____/ \___|\__|\__,_| .__/    \_/|____|
-                       | |                
-                       |_|      by foolio              
-"
-
-echo "Detecting distro..."
+( echo 10;sleep 1;echo 50;sleep 1; echo 90;sleep 1;echo 100;sleep 1 ) | dialog --gauge 'text' 10 60 0
 
 which dnf >/dev/null && { DISTRO="FEDORA"; exit 0; }
 which apt-get >/dev/null && { DISTRO="DEBIAN"; }
-
-echo "Detected distro: $DISTRO"
 
 if [[ "$DISTRO" == "DEBIAN" ]]; then
     PKGMGR="apt"
@@ -80,13 +66,9 @@ yes | sudo $REPENABLE
 yes | sudo $PKGMGR update
 clear
 
-echo "Repository update finished."
-sleep 3
-echo "Installing preferences..."
-sleep 3
-echo "Installing $REPODIR..."
+( echo 10;sleep 1;echo 50;sleep 1; echo 90;sleep 1;echo 100;sleep 1 ) | dialog --gauge 'text' 10 60 0
 
-if [[ "$MANINST" == "NO" ]]; then
+FUNC1="if [[ "$MANINST" == "NO" ]]; then
     git clone $REPOLINK
     cd $REPODIR
     chmod +x install.sh
@@ -100,48 +82,31 @@ if [[ "$MANINST" == "NO" ]]; then
     curl -JLO "$REPOLINK"
     unzip "3.2.1.zip" -d $HOME/.themes
     rm -rf $HOME/Downloads/3.2.1.zip
-fi
+fi"
 
-echo "Done."
-sleep 3
-echo "Installing Fluent Theme..."
-
-git clone https://github.com/vinceliuice/Fluent-gtk-theme
+FUNC2="git clone https://github.com/vinceliuice/Fluent-gtk-theme
 cd Fluent-gtk-theme
 chmod +x install.sh
 ./install.sh
 cd ..
 rm -rf Fluent-gtk-theme
-clear
+clear"
 
-echo "Done."
-sleep 3
-echo "Installing Segoe Font..."
-
-git clone https://github.com/mrbvrz/segoe-ui-linux
+FUNC3="git clone https://github.com/mrbvrz/segoe-ui-linux
 cd segoe-ui-linux
 chmod +x install.sh
 yes | ./install.sh
 cd ..
 rm -rf segoe-ui-linux
-clear
+clear"
 
-echo "Done."
-
-if [[ "$CONKINST" == "YES" ]]; then
+FUNC4="if [[ "$CONKINST" == "YES" ]]; then
     sleep 3
-    echo "Installing Conky Manager 2..."
-
     yes | sudo $PKGMGR install conky-manager2
     clear;
-    echo "Done."
-    echo "To configure Conky, find the application 'Conky Manager 2' in your applications menu and launch it."
-fi
+fi"
 
-sleep 3
-
-if [[ "$CONKINST" == "YES" ]]; then
-    echo "Installing extensions..."
+FUNC5="if [[ "$GEXINST" == "YES" ]]; then
 
     array=( https://extensions.gnome.org/extension/3628/arcmenu/
     https://extensions.gnome.org/extension/3843/just-perfection/
@@ -164,19 +129,10 @@ if [[ "$CONKINST" == "YES" ]]; then
     rm ${EXTENSION_ID}.zip
     done
 
-    echo "Extensions installed."
-    sleep 3
-    echo "Configuring time formatter..."
-
     dconf write /org/gnome/shell/extensions/panel-date-format/format "'%I:%M %p\n%Y/%m/%d'"
+fi"
 
-    echo "Time formatter configured."
-    sleep 0.3
-
-    dialog --backtitle "Theme Installer" --msgbox "To configure the rest of the extensions, you will have to configure them in the extensions app. You can find the extensions app via search bar or the Applications menu." 20 60
+if [[ "$GEXINST" == "YES" ]]; then dialog --backtitle "Theme Installer" --msgbox "To configure the rest of the extensions, you will have to configure them in the extensions app. You can find the extensions app via search bar or the Applications menu." 20 60
 fi
-
 dialog --backtitle "Theme Installer" --msgbox "To configure fonts, icons and the like, please open Gnome Tweaks and go to the 'Appearance' tab. You will find everything there." 20 60
-sleep 0.3
-echo "Setup has finished execution. Exiting..."
 bash /setup.sh
