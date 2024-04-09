@@ -29,4 +29,6 @@ esac
 if [[ "$INSTEXT" == "YES" ]]; then
     flatpak install flathub org.gnome.Extensions
     dialog --msgbox "Gnome Extensions has been installed successfully." 20 60
+    else
+    exit 0
 fi  
