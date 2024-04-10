@@ -60,75 +60,70 @@ if [[ "$DISTRO" == "FEDORA" ]]; then
     REPENABLE="dnf copr enable geraldosimiao/conky-manager2"
 fi
 
-MFUNC="yes | sudo $REPENABLE
-yes | sudo $PKGMGR update
-clear"
+( echo 10;
+    yes | sudo $REPENABLE
+    yes | sudo $PKGMGR update;
+    echo 50;
+    if [[ "$MANINST" == "NO" ]]; then
+        git clone $REPOLINK
+        cd $REPODIR
+        chmod +x install.sh
+        ./install.sh
+        cd ..
+        rm -rf $REPODIR;
 
-FUNC1="if [[ "$MANINST" == "NO" ]]; then
-    git clone $REPOLINK
-    cd $REPODIR
+        else
+        cd $HOME/Downloads
+        curl -JLO "$REPOLINK"
+        unzip "3.2.1.zip" -d $HOME/.themes
+        rm -rf $HOME/Downloads/3.2.1.zip
+    fi;
+    echo 60;
+    git clone https://github.com/vinceliuice/Fluent-gtk-theme
+    cd Fluent-gtk-theme
     chmod +x install.sh
     ./install.sh
     cd ..
-    rm -rf $REPODIR
-    clear;
+    rm -rf Fluent-gtk-theme;
+    echo 70;
+    git clone https://github.com/mrbvrz/segoe-ui-linux
+    cd segoe-ui-linux
+    chmod +x install.sh
+    yes | ./install.sh
+    cd ..
+    rm -rf segoe-ui-linux;
+    echo 80;
+    if [[ "$CONKINST" == "YES" ]]; then
+        sleep 3
+        yes | sudo $PKGMGR install conky-manager2;
+    fi;
+    echo 90;
+    if [[ "$GEXINST" == "YES" ]]; then
 
-    else
-    cd $HOME/Downloads
-    curl -JLO "$REPOLINK"
-    unzip "3.2.1.zip" -d $HOME/.themes
-    rm -rf $HOME/Downloads/3.2.1.zip
-fi"
+        array=( https://extensions.gnome.org/extension/3628/arcmenu/
+        https://extensions.gnome.org/extension/3843/just-perfection/
+        https://extensions.gnome.org/extension/1160/dash-to-panel/
+        https://extensions.gnome.org/extension/1462/panel-date-format/
+        https://extensions.gnome.org/extension/4648/desktop-cube/
+        https://extensions.gnome.org/extension/5263/gtk4-desktop-icons-ng-ding/
+        https://extensions.gnome.org/extension/19/user-themes/ )
 
-FUNC2="git clone https://github.com/vinceliuice/Fluent-gtk-theme
-cd Fluent-gtk-theme
-chmod +x install.sh
-./install.sh
-cd ..
-rm -rf Fluent-gtk-theme
-clear"
-
-FUNC3="git clone https://github.com/mrbvrz/segoe-ui-linux
-cd segoe-ui-linux
-chmod +x install.sh
-yes | ./install.sh
-cd ..
-rm -rf segoe-ui-linux
-clear"
-
-FUNC4="if [[ "$CONKINST" == "YES" ]]; then
-    sleep 3
-    yes | sudo $PKGMGR install conky-manager2
-    clear;
-fi"
-
-FUNC5="if [[ "$GEXINST" == "YES" ]]; then
-
-    array=( https://extensions.gnome.org/extension/3628/arcmenu/
-    https://extensions.gnome.org/extension/3843/just-perfection/
-    https://extensions.gnome.org/extension/1160/dash-to-panel/
-    https://extensions.gnome.org/extension/1462/panel-date-format/
-    https://extensions.gnome.org/extension/4648/desktop-cube/
-    https://extensions.gnome.org/extension/5263/gtk4-desktop-icons-ng-ding/
-    https://extensions.gnome.org/extension/19/user-themes/ )
-
-    for i in "${array[@]}"
-    do
-        EXTENSION_ID=$(curl -s $i | grep -oP 'data-uuid="\K[^"]+')
-        VERSION_TAG=$(curl -Lfs "https://extensions.gnome.org/extension-query/?search=$EXTENSION_ID" | jq '.extensions[0] | .shell_version_map | map(.pk) | max')
-        wget -O ${EXTENSION_ID}.zip "https://extensions.gnome.org/download-extension/${EXTENSION_ID}.shell-extension.zip?version_tag=$VERSION_TAG"
-        gnome-extensions install --force ${EXTENSION_ID}.zip
-        if ! gnome-extensions list | grep --quiet ${EXTENSION_ID}; then
-            busctl --user call org.gnome.Shell.Extensions /org/gnome/Shell/Extensions org.gnome.Shell.Extensions InstallRemoteExtension s ${EXTENSION_ID}
-    fi
+        for i in "${array[@]}"
+        do
+            EXTENSION_ID=$(curl -s $i | grep -oP 'data-uuid="\K[^"]+')
+            VERSION_TAG=$(curl -Lfs "https://extensions.gnome.org/extension-query/?search=$EXTENSION_ID" | jq '.extensions[0] | .shell_version_map | map(.pk) | max')
+            wget -O ${EXTENSION_ID}.zip "https://extensions.gnome.org/download-extension/${EXTENSION_ID}.shell-extension.zip?version_tag=$VERSION_TAG"
+            gnome-extensions install --force ${EXTENSION_ID}.zip
+            if ! gnome-extensions list | grep --quiet ${EXTENSION_ID}; then
+                busctl --user call org.gnome.Shell.Extensions /org/gnome/Shell/Extensions org.gnome.Shell.Extensions InstallRemoteExtension s ${EXTENSION_ID}
+        fi
     gnome-extensions enable ${EXTENSION_ID}
     rm ${EXTENSION_ID}.zip
     done
 
     dconf write /org/gnome/shell/extensions/panel-date-format/format "'%I:%M %p\n%Y/%m/%d'"
-fi"
-
-( echo 10;$MFUNC;echo 50;$FUNC1;echo 60;$FUNC2;echo 70;$FUNC3;echo 80;$FUNC4;echo 90;$FUNC5;echo 100 ) | dialog --gauge 'text' 10 60 0
+    fi;
+echo 100 ) | dialog --gauge 'text' 10 60 0
 
 if [[ "$GEXINST" == "YES" ]]; then dialog --backtitle "Theme Installer" --msgbox "To configure the rest of the extensions, you will have to configure them in the extensions app. You can find the extensions app via search bar or the Applications menu." 20 60
 fi
